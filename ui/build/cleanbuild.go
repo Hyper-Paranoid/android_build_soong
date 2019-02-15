@@ -54,6 +54,13 @@ func dataClean(ctx Context, config Config, what int) {
 	removeGlobs(ctx, filepath.Join(config.ProductOut(), "data", "*"))
 }
 
+// Remove everything under the target/product directory. Don't remove the
+// common directory.
+func productClean(ctx Context, config Config, what int) {
+	removeGlobs(ctx, filepath.Join(config.TargetDir(), "*"))
+	ctx.Println("Entire target directory removed.")
+}
+
 // installClean deletes all of the installed files -- the intent is to remove
 // files that may no longer be installed, either because the user previously
 // installed them, or they were previously installed by default but no longer
