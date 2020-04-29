@@ -56,6 +56,14 @@ type variableProperties struct {
 			Exclude_static_libs []string `android:"arch_variant"`
 		} `android:"arch_variant"`
 
+		Malloc_zero_contents struct {
+			Cflags []string `android:"arch_variant"`
+		} `android:"arch_variant"`
+
+		Malloc_pattern_fill_contents struct {
+			Cflags []string `android:"arch_variant"`
+		} `android:"arch_variant"`
+
 		Safestack struct {
 			Cflags []string `android:"arch_variant"`
 		} `android:"arch_variant"`
@@ -215,6 +223,8 @@ type productVariables struct {
 	Unbundled_build_sdks_from_source *bool `json:",omitempty"`
 	Malloc_not_svelte                *bool `json:",omitempty"`
 	Malloc_not_svelte_libc32         *bool `json:",omitempty"`
+	Malloc_zero_contents             *bool `json:",omitempty"`
+	Malloc_pattern_fill_contents     *bool `json:",omitempty"`
 	Safestack                        *bool `json:",omitempty"`
 	HostStaticBinaries               *bool `json:",omitempty"`
 	Binder32bit                      *bool `json:",omitempty"`
@@ -388,9 +398,11 @@ func (v *productVariables) SetDefaultConfig() {
 		AAPTCharacteristics: stringPtr("nosdcard"),
 		AAPTPrebuiltDPI:     []string{"xhdpi", "xxhdpi"},
 
-		Malloc_not_svelte:        boolPtr(true),
-		Malloc_not_svelte_libc32: boolPtr(true),
-		Safestack:                boolPtr(false),
+		Malloc_not_svelte:            boolPtr(true),
+		Malloc_not_svelte_libc32:     boolPtr(true),
+		Malloc_zero_contents:         boolPtr(false),
+		Malloc_pattern_fill_contents: boolPtr(false),
+		Safestack:                    boolPtr(false),
 	}
 
 	if runtime.GOOS == "linux" {
