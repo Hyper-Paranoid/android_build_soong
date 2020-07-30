@@ -400,7 +400,7 @@ func (v *productVariables) SetDefaultConfig() {
 
 		Malloc_not_svelte:            boolPtr(true),
 		Malloc_not_svelte_libc32:     boolPtr(true),
-		Malloc_zero_contents:         boolPtr(false),
+		Malloc_zero_contents:         boolPtr(true),
 		Malloc_pattern_fill_contents: boolPtr(false),
 		Safestack:                    boolPtr(false),
 	}
