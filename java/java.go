@@ -317,6 +317,10 @@ type CompilerDeviceProperties struct {
 		// True if the module containing this has it set by default.
 		EnabledByDefault bool `blueprint:"mutated"`
 
+		// If true, runs R8 in Proguard compatibility mode (default).
+		// Otherwise, runs R8 in full mode.
+		Proguard_compatibility *bool
+
 		// If true, optimize for size by removing unused code.  Defaults to true for apps,
 		// false for libraries and tests.
 		Shrink *bool
