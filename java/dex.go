@@ -57,7 +57,6 @@ var r8, r8RE = remoteexec.MultiCommandStaticRules(pctx, "r8",
 		Command: `rm -rf "$outDir" && mkdir -p "$outDir" && ` +
 			`rm -f "$outDict" && ` +
 			`$r8Template${config.R8Cmd} ${config.DexFlags} -injars $in --output $outDir ` +
-			`--force-proguard-compatibility ` +
 			`--no-data-resources ` +
 			`-printmapping $outDict ` +
 			`$r8Flags && ` +
@@ -172,6 +171,10 @@ func (j *Module) r8Flags(ctx android.ModuleContext, flags javaBuilderFlags) (r8F
 		"build/make/core/proguard_basic_keeps.flags"))
 
 	r8Flags = append(r8Flags, j.deviceProperties.Optimize.Proguard_flags...)
+
+	if BoolDefault(opt.Proguard_compatibility, true) {
+		r8Flags = append(r8Flags, "--force-proguard-compatibility")
+	}
 
 	// TODO(ccross): Don't shrink app instrumentation tests by default.
 	if !Bool(opt.Shrink) {
