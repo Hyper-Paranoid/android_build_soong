@@ -75,6 +75,8 @@ func GetConfig(name string) PathConfig {
 
 var Configuration = map[string]PathConfig{
 	"bash":    Allowed,
+	"brotli":  Allowed,
+	"ccache":  Allowed,
 	"dd":      Allowed,
 	"diff":    Allowed,
 	"dlv":     Allowed,
@@ -91,6 +93,9 @@ var Configuration = map[string]PathConfig{
 	"openssl": Allowed,
 	"patch":   Allowed,
 	"pstree":  Allowed,
+	"python3": Allowed,
+	"python3.6":  Allowed,
+	"repo":    Allowed,
 	"rsync":   Allowed,
 	"sh":      Allowed,
 	"tr":      Allowed,
