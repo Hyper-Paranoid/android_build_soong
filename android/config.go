@@ -1042,7 +1042,7 @@ func (c *deviceConfig) DeviceKernelHeaderDirs() []string {
 }
 
 func (c *deviceConfig) TargetSpecificHeaderPath() string {
-	return String(c.config.productVariables.Banana.Target_specific_header_path)
+	return String(c.config.productVariables.TargetSpecificHeaderPath)
 }
 
 func (c *deviceConfig) SamplingPGO() bool {
