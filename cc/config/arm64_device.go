@@ -42,7 +42,6 @@ var (
 	arm64Ldflags = []string{
 		"-Wl,--hash-style=gnu",
 		"-Wl,-z,separate-code",
-		"-Wl,--icf=safe",
 	}
 
 	arm64Lldflags = append(ClangFilterUnknownLldflags(arm64Ldflags),
@@ -126,9 +125,9 @@ func init() {
 
 var (
 	arm64ClangArchVariantCflagsVar = map[string]string{
-		"armv8-a":  "${config.Arm64ClangArmv8ACflags}",
-		"armv8-2a": "${config.Arm64ClangArmv82ACflags}",
-		"armv8-2a-dotprod": "${config.Arm64ClangArmv82ADotprodCflags}",
+		"armv8-a":            "${config.Arm64ClangArmv8ACflags}",
+		"armv8-2a":           "${config.Arm64ClangArmv82ACflags}",
+		"armv8-2a-dotprod":   "${config.Arm64ClangArmv82ADotprodCflags}",
 	}
 
 	arm64ClangCpuVariantCflagsVar = map[string]string{
