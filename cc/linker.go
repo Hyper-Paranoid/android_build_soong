@@ -553,24 +553,23 @@ func (linker *baseLinker) injectVersionSymbol(ctx ModuleContext, in android.Path
 // Rule to generate .bss symbol ordering file.
 
 var (
-	_                      = pctx.SourcePathVariable("genSortedBssSymbolsPath", "build/soong/scripts/gen_sorted_bss_symbols.sh")
-	gen_sorted_bss_symbols = pctx.AndroidStaticRule("gen_sorted_bss_symbols",
+	_                   = pctx.SourcePathVariable("genSortedBssSymbolsPath", "build/soong/scripts/gen_sorted_bss_symbols.sh")
+	genSortedBssSymbols = pctx.AndroidStaticRule("gen_sorted_bss_symbols",
 		blueprint.RuleParams{
-			Command:     "CROSS_COMPILE=$crossCompile $genSortedBssSymbolsPath ${in} ${out}",
-			CommandDeps: []string{"$genSortedBssSymbolsPath", "${crossCompile}nm"},
+			Command:     "CLANG_BIN=${clangBin} $genSortedBssSymbolsPath ${in} ${out}",
+			CommandDeps: []string{"$genSortedBssSymbolsPath", "${clangBin}/llvm-nm"},
 		},
-		"crossCompile")
+		"clangBin")
 )
 
 func (linker *baseLinker) sortBssSymbolsBySize(ctx ModuleContext, in android.Path, symbolOrderingFile android.ModuleOutPath, flags builderFlags) string {
-	crossCompile := gccCmd(flags.toolchain, "")
 	ctx.Build(pctx, android.BuildParams{
-		Rule:        gen_sorted_bss_symbols,
+		Rule:        genSortedBssSymbols,
 		Description: "generate bss symbol order " + symbolOrderingFile.Base(),
 		Output:      symbolOrderingFile,
 		Input:       in,
 		Args: map[string]string{
-			"crossCompile": crossCompile,
+			"clangBin": "${config.ClangBin}",
 		},
 	})
 	return "-Wl,--symbol-ordering-file," + symbolOrderingFile.String()
